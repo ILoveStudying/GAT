@@ -15,6 +15,7 @@ from models import GAT, SpGAT
 
 # Training settings
 parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', type=str, default='cora', help='cora | citeseer | pubmed.')
 parser.add_argument('--no-cuda', action='store_true', default=False, help='Disables CUDA training.')
 parser.add_argument('--fastmode', action='store_true', default=False, help='Validate during training pass.')
 parser.add_argument('--sparse', action='store_true', default=True, help='GAT with sparse version or not.')
@@ -42,7 +43,7 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
 # Load data
-adj, features, labels, idx_train, idx_val, idx_test = load_data()
+adj, features, labels, idx_train, idx_val, idx_test = load_data(dataset = args.dataset)
 
 # Model and optimizer
 if args.sparse:
